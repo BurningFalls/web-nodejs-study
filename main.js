@@ -53,7 +53,12 @@ var app = http.createServer(function(request,response){
           fs.readFile(`data/${title}`, 'utf8', function(err, description) {
             var list = templateList(filelist);
             var template = templateHTML(title, list, `<h2>${title}</h2>${description}`,
-            `<a href="/create">create</a> <a href="/update?id=${title}">update</a>`);
+            `<a href="/create">create</a>
+            <a href="/update?id=${title}">update</a>
+            <form action="delete_process" method="post">
+              <input type="hidden" name="id" value="${title}">
+              <input type="submit" value="delete">
+            </form>`);
             response.writeHead(200);
             response.end(template);
           })
